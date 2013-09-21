@@ -1,0 +1,18 @@
+zad 8.
+
+Da se sastawi programa za obrabotwane na danni za predlaganite koli w
+awto okazion.
+
+1. Syzdawane na nachalna baza ot danni za kolite, sadarjashta za wsqka kola:
+marka, godina na proizwodstwo, prodajna cena.
+2. Izwejdane na sprawki za systoqnieto na kolite w okaziona
+ - spisyk na wsi4ki koli s wawedenite danni za tqh
+ - spisak na tezi koli, chiqto cena e po-niska ot zadadenata cena
+ - spisak na kolite po  marka, a nakraja na spisaka da se izwede
+obshtata suma w levove za wsi4ki koli w awto-okaziona
+3. Aktualizirane na dannite za edna kola, wkliuchwashto obichajnite
+obrabotki kato dopalwane, iztriwane ili promqna na dannite za edna
+kola.
+4. Sortirane na kolite:
+ - po marka
+ - po cena za edni broj

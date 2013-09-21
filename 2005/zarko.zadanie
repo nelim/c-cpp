@@ -1,0 +1,6 @@
+zad20)
+Da se sastavi programa za obsluzvane na ski-systezateli. Za wseki systezatel se wywezda slednata informacia: nomer, ime i familiq, postizenie, darzava. Programata da dava vazmoznost za poluchavane na slednite rezultati:
+1. Izvezdane na spisak na swichki systezateli s wywedenite danni za tiah;
+2. Izvezdane na spisak na wsichki systezateli, podredeni w nizhodiast red na postizeniqta im. Ako ima sastezateli s edno i sasto postizenie, po-napred w spisyka da se izwede tozi, chieto ime zapochva s po-npredna bukva ot azbukata.
+3. Presmiatane i izvezdane na sredno postizenie na sastezatelite;
+4. Izvezdane na spisyk na wsichki systezateli ot dadena dyrzawa, koito imat postizenie po-wisoko ot srednoto za systezanieto.
