@@ -1,3 +1,10 @@
+// --------------------------------------//
+// Uprajnenie na zadacha za avto okazion //
+//					 //
+// @author nelim			 //
+// --------------------------------------//
+
+
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -8,7 +15,7 @@ using namespace std;
 int n; // broi koli
 
 class Car {
-		private: // promenlivi s dannite za kolite
+		private: // promenlivi s dannite za kolite, skriti, otdolu ima publichni funkcii za izkarwane na infoto
 			string make;
 			int price;
 			int year;
@@ -39,24 +46,40 @@ class Car {
 		}
 
 		void printData() {
-			cout << setw(15) << make << setw(20) << year << setw(15) << price << endl;
+			cout << setw(15) << make << setw(25) << year << setw(15) << price << setw(15) << getPriceVAT() << endl;
 		}
 };
 
 void spisak1(Car cars[]) { 
 
-     cout << "Spisak na awtomobilite v okaziona\n";
-     cout << setw(15) << "marka" << setw(20) << "God. na proizv." << setw(15) << "Cena" << endl;
-     for (int i=0;i<=n;i++) {
+     cout << "List of available cars:" << endl;
+     cout << setw(15) << "Make" << setw(25) << "Year of produce" << setw(15) << "Price" << setw(15) << "VAT Price" << n << endl;
+     for (int i=0;i<n;i++) {
 		cars[i].printData();
-		cars[i].enterData();
          }
 }
 
-int main() {
-int n;
+void spisak2(Car cars[]) {
+	int Nprice;
+	cout << "Въведете цена: "; cin >> Nprice;
+	cout << "List of available cars with price lower than " << Nprice << ":" << endl;
+        cout << setw(15) << "Make" << setw(25) << "Year of produce" << setw(15) << "Price" << setw(15) << "VAT Price" << endl;
+	for(int i=0;i<n;i++) {
+		if(cars[i].getPrice()<Nprice) {
+			cars[i].printData();
+		}
+	}
+}
 
-     cout << "Vavedete broi avtomobili za parwonachalno wawejdane: ";
+void spisak3()  {
+	cout << n;
+	//cars[0].printData();
+	//cars[1].printData();
+}
+
+int main() {
+
+     cout << "Въведете брой автомобили за първоначално въвеждане: ";
      cin >> n;
 
 Car* cars = new Car[n]; // Заделяме памет за n на брой коли
@@ -80,12 +103,14 @@ do {
     if (1<=menu&&menu<=7) {
                           switch (menu) 
                           {
-                                 case 1:spisak1(cars);break;
-                                 case 3:system("clear");break;
+                                 case 1:system("clear");spisak1(cars);break;
+                                 case 2:system("clear");spisak2(cars);break;
+                                 case 3:system("clear");spisak3();break;
                                  case 7:cout <<"Izhod";break;
                                  }
                           }      
     else cout << "Greshka";
  } while (menu!=7);
+delete[] cars;	// освобождаване на паметта за динамичния масив
 return 0;
 }
