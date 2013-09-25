@@ -8,6 +8,7 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <cstring>
 #include <cstdlib>
 
 using namespace std;
@@ -33,7 +34,7 @@ class Car {
 
 		string getMake() { return make; }
 		int getPrice() { return price; }
-		int setYear()	{ return year; }
+		int getYear()	{ return year; }
 		int getPriceVAT() { return price*1.2; }
 
 
@@ -48,9 +49,10 @@ class Car {
 		void printData() {
 			cout << setw(15) << make << setw(25) << year << setw(15) << price << setw(15) << getPriceVAT() << endl;
 		}
+
 };
 
-void spisak1(Car cars[]) { 
+void spisak1(Car cars[]) {
 
      cout << "List of available cars:" << endl;
      cout << setw(15) << "Make" << setw(25) << "Year of produce" << setw(15) << "Price" << setw(15) << "VAT Price" << n << endl;
@@ -71,10 +73,35 @@ void spisak2(Car cars[]) {
 	}
 }
 
-void spisak3()  {
-	cout << n;
-	//cars[0].printData();
-	//cars[1].printData();
+void spisak3(Car cars[])  {
+	Car* tempcar = new Car[1]; // nov wremenen obekt za sotrirane
+
+	int totalprice = 0;
+	for(int i=0;i<n;i++) {
+		for (int j=0;j<n-1;j++) {
+			string j1 = cars[j+1].getMake();
+			string j0 = cars[j].getMake();
+//			if(strcmp(cars[j+1].getMake(),cars[j].getMake())<0) {
+			if(j1.compare(j0)<0) {
+////				tempcar[1]=cars[j+1]; cars[j+1]=cars[j]; cars[j]=tempcar[1];
+cout << "kur";
+//				tempcar[1].setMake(cars[j+1].getMake());
+//				tempcar[1].setYear(cars[j+1].getYear());
+//				tempcar[1].setPrice(cars[j+1].getPrice());
+//
+//                                cars[j+1].setMake(cars[j].getMake());
+//                                cars[j+1].setYear(cars[j].getYear());
+//                                cars[j+1].setPrice(cars[j].getPrice());
+
+//                                cars[j].setMake(tempcar[1].getMake());
+//                                cars[j].setYear(tempcar[1].getYear());
+//                                cars[j].setPrice(tempcar[1].getPrice());
+				 }
+		}
+		totalprice = totalprice + cars[i].getPrice();
+	}
+	cout << totalprice;
+	delete[] tempcar;
 }
 
 int main() {
@@ -105,7 +132,7 @@ do {
                           {
                                  case 1:system("clear");spisak1(cars);break;
                                  case 2:system("clear");spisak2(cars);break;
-                                 case 3:system("clear");spisak3();break;
+                                 case 3:system("clear");spisak3(cars);break;
                                  case 7:cout <<"Izhod";break;
                                  }
                           }      
