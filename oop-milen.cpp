@@ -81,28 +81,39 @@ void spisak3(Car cars[])  {
 		for (int j=0;j<n-1;j++) {
 			string j1 = cars[j+1].getMake();
 			string j0 = cars[j].getMake();
-//			if(strcmp(cars[j+1].getMake(),cars[j].getMake())<0) {
-			if(j1.compare(j0)<0) {
-////				tempcar[1]=cars[j+1]; cars[j+1]=cars[j]; cars[j]=tempcar[1];
-cout << "kur";
-//				tempcar[1].setMake(cars[j+1].getMake());
-//				tempcar[1].setYear(cars[j+1].getYear());
-//				tempcar[1].setPrice(cars[j+1].getPrice());
-//
-//                                cars[j+1].setMake(cars[j].getMake());
-//                                cars[j+1].setYear(cars[j].getYear());
-//                                cars[j+1].setPrice(cars[j].getPrice());
 
-//                                cars[j].setMake(tempcar[1].getMake());
-//                                cars[j].setYear(tempcar[1].getYear());
-//                                cars[j].setPrice(tempcar[1].getPrice());
-				 }
+// 			obryshtane na stringowete w char za polzwane na strcmp 
+//			char *b0 = (char*)j0.c_str();
+//			char *b1 = (char*)j1.c_str();
+//			if(strcmp(cars[j+1].getMake(),cars[j].getMake())<0) {
+//			if(strcmp(b1,b0)<0) {
+
+			if(j1.compare(j0)<0) {
+				tempcar[0]=cars[j+1]; cars[j+1]=cars[j]; cars[j]=tempcar[0];
+				}
 		}
+	}
+	for(int i=0;i<n;i++) {
+		cars[i].printData();
 		totalprice = totalprice + cars[i].getPrice();
 	}
 	cout << totalprice;
 	delete[] tempcar;
 }
+
+void spisak6(Car cars[]) {
+	Car* tempcar = new Car[1]; // za sortirovki
+
+	for(int i=0;i<n;i++) {
+		for(int j=0;j<n-1;j++) {
+			if(cars[j].getPrice()>cars[j+1].getPrice()) {
+				tempcar[0]=cars[j+1]; cars[j+1]=cars[j]; cars[j]=tempcar[0];
+			}
+		}
+	}
+	delete[] tempcar;
+}
+
 
 int main() {
 
@@ -130,9 +141,10 @@ do {
     if (1<=menu&&menu<=7) {
                           switch (menu) 
                           {
-                                 case 1:system("clear");spisak1(cars);break;
-                                 case 2:system("clear");spisak2(cars);break;
-                                 case 3:system("clear");spisak3(cars);break;
+                                 case 1:spisak1(cars);break;
+                                 case 2:spisak2(cars);break;
+                                 case 3:spisak3(cars);break;
+                                 case 6:spisak6(cars);break;
                                  case 7:cout <<"Izhod";break;
                                  }
                           }      
