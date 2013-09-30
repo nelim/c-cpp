@@ -26,7 +26,7 @@ struct buslines {
 	char company[20];
 };
 
-void enterBus(struct buslines *busline, int i) {
+void enterBusLine(struct buslines *busline, int i) {
 
 	printf("Въведете начална точка за автобусна линия номер %d:", i);
 	scanf("%s", &busline->start_point);
@@ -36,6 +36,7 @@ void enterBus(struct buslines *busline, int i) {
 	scanf("%d", &busline->price);
 	printf("Въведете преференциална цена за автобусна линия номер %d:", i);
 	scanf("%d", &busline->promo_price);
+	/*
 		// wywejdane na data
 		do {
 			printf("Въведете ден за автобусна линия номер %d:", i);
@@ -62,8 +63,16 @@ void enterBus(struct buslines *busline, int i) {
 
 	printf("Въведете компания за автобусна линия номер %d:", i);
 	scanf("%s", &busline->company);
+	*/
 }
 
+void printBusLine(struct buslines *busline, int i) {
+	printf("Начална точка за автобус номер %d e %s\n", i, busline->start_point);
+	printf("Цена за автобус номер %d e %d\n", i, busline->price);
+	//printf("Компанията на автобус номер %d e %s\n", i, busline->company);
+	//printf("Дата за автобус номер %d e %d.%d.%d\n", i, busline->date.day, busline->date.month, busline->date.year);
+	//printf("Час за автобус номер %d e %d:%d\n", i, busline->time.hour, busline->time.min);
+}
 
 int main(void) {
 	do {
@@ -77,14 +86,11 @@ int main(void) {
 
 	int i; // cikyl
 		for(i=0;i<n;i++) {
-			enterBus(&busline[i],i);
+			enterBusLine(&busline[i],i);
 		}
 
 	for(i=0;i<n;i++) {
-	printf("Начална точка за автобус номер %d e %s\n", i, busline[i].start_point);
-	printf("Компанията на автобус номер %d e %s\n", i, busline[i].company);
-	printf("Дата за автобус номер %d e %d.%d.%d\n", i, busline[i].date.day, busline[i].date.month, busline[i].date.year);
-	printf("Час за автобус номер %d e %d:%d\n", i, busline[i].time.hour, busline[i].time.min);
+		printBusLine(&busline[i],i);
 	}
 
 
