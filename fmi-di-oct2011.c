@@ -34,9 +34,10 @@ void enterBusLine(struct buslines *busline, int i) {
 
 	printf("Въведете цена за автобусна линия номер %d:", i);
 	scanf("%d", &busline->price);
-	// /* Коментирам ги за да мога по-лесно да тествам
 	printf("Въведете преференциална цена за автобусна линия номер %d:", i);
 	scanf("%d", &busline->promo_price);
+
+	/* Коментирам ги за да мога по-лесно да тествам
 		// wywejdane na data
 		do {
 			printf("Въведете ден за автобусна линия номер %d:", i);
@@ -61,18 +62,18 @@ void enterBusLine(struct buslines *busline, int i) {
 			scanf("%d", &busline->time.min);
 		} while (busline->time.min > 60);
 
-	//printf("Въведете компания за автобусна линия номер %d:", i);
-	//scanf("%s", &busline->company);
-	// */
+	*/
+	printf("Въведете компания за автобусна линия номер %d:", i);
+	scanf("%s", &busline->company);
 }
 
 void printBusLine(struct buslines *busline, int i) {
 	printf("Начална точка за автобус номер %d e %s\n", i, busline->start_point);
 	printf("Цена за автобус номер %d e %d\n", i, busline->price);
 	// за по лесно тестване
-	//printf("Компанията на автобус номер %d e %s\n", i, busline->company);
-	printf("Дата за автобус номер %d e %d.%d.%d\n", i, busline->date.day, busline->date.month, busline->date.year);
-	printf("Час за автобус номер %d e %d:%d\n", i, busline->time.hour, busline->time.min);
+	printf("Компанията на автобус номер %d e %s\n", i, busline->company);
+	//printf("Дата за автобус номер %d e %d.%d.%d\n", i, busline->date.day, busline->date.month, busline->date.year);
+	//printf("Час за автобус номер %d e %d:%d\n", i, busline->time.hour, busline->time.min);
 }
 
 void sortBusLinesPrice(struct buslines busline[], int n) {
@@ -87,21 +88,29 @@ void sortBusLinesPrice(struct buslines busline[], int n) {
 	}
 }
 
-void sortBusLinesDate(struct buslines busline[], int n) {
+int cmpByStartPoint(struct  buslines busline1, struct buslines busline2) {
+    return strcmp(busline1.start_point, busline2.start_point);
+}
+
+void sortBusLinesNameDate(struct buslines busline[], int n) {
 	int i,j;
 	struct buslines temp;
 	for(i=0;i<n;i++) {
 		for(j=0;j<n-1;j++) {
-			if(busline[j].date.year>busline[j+1].date.year) {
+			if(cmpByStartPoint(busline[j],busline[j+1])>0) {
 				temp=busline[j+1]; busline[j+1]=busline[j]; busline[j]=temp;
-			} else if((busline[j].date.year == busline[j+1].date.year)&&(busline[j].date.month>busline[j+1].date.month)) {
+			}
+			   else if((cmpByStartPoint(busline[j],busline[j+1])==0)&&(busline[j].date.year>busline[j+1].date.year)) {
+			 	temp=busline[j+1]; busline[j+1]=busline[j]; busline[j]=temp;
+			  } else if((cmpByStartPoint(busline[j],busline[j+1])==0)&&(busline[j].date.year == busline[j+1].date.year)&&(busline[j].date.month>busline[j+1].date.month)) {
 				temp=busline[j+1]; busline[j+1]=busline[j]; busline[j]=temp;
-			} else if((busline[j].date.month == busline[j+1].date.month) && (busline[j].date.day>busline[j+1].date.day)) {
+			  } else if((cmpByStartPoint(busline[j],busline[j+1])==0)&&(busline[j].date.month == busline[j+1].date.month) && (busline[j].date.day>busline[j+1].date.day)) {
 				temp=busline[j+1]; busline[j+1]=busline[j]; busline[j]=temp;
 			}
 		}
 	}
 }
+
 
 int main(void) {
 	do {
@@ -126,13 +135,26 @@ int main(void) {
 		printBusLine(&busline[i],i);
 	}
 
-        // sort whole array by date
-        sortBusLinesDate(busline,n);
+        // sort whole array by name and date
+        //sortBusLinesNameDate(busline,n);
 
 	// Output
 	for(i=0;i<n;i++) {
 		printBusLine(&busline[i],i);
 	}
+
+	unsigned hebros_price = 0;
+	unsigned hebros_count = 0;
+	char com[30] = "hebros";
+
+	for (i=0;i<n;i++) {
+		if(strcmp(busline[i].company,com)==0) {
+			hebros_price += busline[i].promo_price;
+			hebros_count++;
+		}
+	}
+	int hebros_avg = hebros_price/hebros_count;
+	printf("Средна промоционална цена за автобусите на ХебросБус е %d \n", hebros_avg);
 
 return 0;
 }
