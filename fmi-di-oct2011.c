@@ -26,6 +26,17 @@ struct buslines {
 	char company[20];
 };
 
+float avg_promo_price(struct buslines busline[], char company[20]) {
+	int i, count = 0, price = 0;
+        for (i=0;i<n;i++) {
+                if(strcmp(busline[i].company,company)==0) {
+                        price += busline[i].promo_price;
+                        count++;
+                }
+        }
+        return (float)price/count;
+}
+
 void enterBusLine(struct buslines *busline, int i) {
 
 	printf("Въведете начална точка за автобусна линия номер %d:", i);
@@ -68,10 +79,9 @@ void enterBusLine(struct buslines *busline, int i) {
 }
 
 void printBusLine(struct buslines *busline, int i) {
-	printf("Начална точка за автобус номер %d e %s\n", i, busline->start_point);
-	printf("Цена за автобус номер %d e %d\n", i, busline->price);
+	printf("Автобус %d: направление: %s, цена: %d, промо: %d, компания: %s\n", 
+	i, busline->start_point, busline->price, busline->promo_price, busline->company); 
 	// за по лесно тестване
-	printf("Компанията на автобус номер %d e %s\n", i, busline->company);
 	//printf("Дата за автобус номер %d e %d.%d.%d\n", i, busline->date.day, busline->date.month, busline->date.year);
 	//printf("Час за автобус номер %d e %d:%d\n", i, busline->time.hour, busline->time.min);
 }
@@ -138,23 +148,8 @@ int main(void) {
         // sort whole array by name and date
         //sortBusLinesNameDate(busline,n);
 
-	// Output
-	for(i=0;i<n;i++) {
-		printBusLine(&busline[i],i);
-	}
-
-	unsigned hebros_price = 0;
-	unsigned hebros_count = 0;
-	char com[30] = "hebros";
-
-	for (i=0;i<n;i++) {
-		if(strcmp(busline[i].company,com)==0) {
-			hebros_price += busline[i].promo_price;
-			hebros_count++;
-		}
-	}
-	int hebros_avg = hebros_price/hebros_count;
-	printf("Средна промоционална цена за автобусите на ХебросБус е %d \n", hebros_avg);
+	float hebros_avg = avg_promo_price(busline, "hebros");
+	printf("Средна промоционална цена за автобусите на ХебросБус е %f \n", hebros_avg);
 
 return 0;
 }
