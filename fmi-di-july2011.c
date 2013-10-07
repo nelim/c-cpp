@@ -83,18 +83,23 @@ int main(void) {
 	}
 
 	// т.2 сортиране на масива с полетите по име на дестинация
+	int total_promo_price = 0; // сума на всички промо цени
 	for(i=0;i<n;i++) {
 		for(j=0;j<n-1;j++) {
 			if(strcmp(flight[j].destination,flight[j+1].destination)>0) {
 				tempflight=flight[j]; flight[j]=flight[j+1]; flight[j+1]=tempflight;
 			}
 		}
+		total_promo_price += flight[i].price;
 	}
 
 	printf("Сортирани по азбучен ред полети: \n");
         for(i=0;i<n;i++) {
                 getFlight(&flight[i]);
         }
+
+        printf("Средна промо цена: \n");
+	printf("%3.2lf\n", (float)total_promo_price/n);
 
 	// т.3 списък на полетите до Париж и Лондон от 08.2011 подредени по дата на полета
 	struct flights newflight[500];
