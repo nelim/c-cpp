@@ -123,12 +123,13 @@ int main(void) {
 	}
 	printf("Сортирани по дата полети от август месец за Париж и Лондон\n");
 
+	// печатаме по заложения от условието начин
 	for(i=0;i<nn;i++) {
 		printf("%d.%d.%d. %s %s %d eur.\n", newflight[i].day, newflight[i].month, newflight[i].year, newflight[i].destination, newflight[i].company, newflight[i].price);
 	}
 
 	// т.4 Авиокомпанията с най-много полети и средната отстъпка за тях + 3-те най ниски цени и тяхните направления
-
+	// от самото въвеждане на полетите имаме масив с големина k, в който имаме запис за всяка компания и колко полета има, сортираме го така че в 0-левия запис да стане тази с най-много полети
 	for(i=0;i<k;i++) {
 		for(j=0;j<k-1;j++)
 			if(maxflight[j].count<maxflight[j+1].count) {
@@ -136,15 +137,18 @@ int main(void) {
 			}
 	}
 
+	// след като вече имаме компанията с най-много полети в maxflight[0].company претърсваме целия масив за компанията и вадим отстъпката за всеки полет
 	int avg_promo = 0;
 	for(i=0;i<n;i++) {
 		if(strcmp(flight[i].company,maxflight[0].company)==0) {
 			avg_promo += (flight[i].price-flight[i].promo_price);
 		}
 	}
+	// делим на полетите за компанията и вадим средна отстъпка 
 	printf("Средна отстъпка за полетите на %s e %3.2lf\n", maxflight[0].company, (float)avg_promo/maxflight[0].count);
 
 	// т.4.2
+	// сортираме целия масив по промо цените в възходящ ред
         for(i=0;i<n;i++) {
                 for(j=0;j<n-1;j++) {
                         if(flight[j].promo_price>flight[j+1].promo_price) {
@@ -153,6 +157,7 @@ int main(void) {
                 }
         }
 
+	// и вадим първите 3 резултата
         printf("Трите полета с най-ниска промо цена\n");
         for(i=0;i<3;i++) {
                 getFlight(&flight[i]);
