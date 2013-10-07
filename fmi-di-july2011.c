@@ -30,6 +30,8 @@ void addFlight(struct flights *flight) {
 	scanf("%s", (char*)&flight->company);
 	printf("Цена: ");
 	scanf("%d", &flight->price);
+	printf("Промо Цена: ");
+	scanf("%d", &flight->promo_price);
 	printf("Ден: ");
 	scanf("%d", &flight->day);
 	printf("Месец: ");
@@ -39,13 +41,13 @@ void addFlight(struct flights *flight) {
 };
 
 void getFlight(struct flights *flight) {
-         printf("%d.%d.%d. %s %s %d eur.\n", flight->day, flight->month, flight->year, flight->destination, flight->company, flight->price);
+         printf("%d.%d.%d. %s %s %d eur. promo: %d eur.\n", flight->day, flight->month, flight->year, flight->destination, flight->company, flight->price, flight->promo_price);
 };
 
 
 int main(void) {
 	struct flights flight[500],tempflight;
-	struct maxflights maxflight[500]; // двумерен масив за броене на компаниите
+	struct maxflights maxflight[500],tempmax; // двумерен масив за броене на компаниите
 
 	int k = 0; // броя въведени компании
 	int i,j; //loops
@@ -90,7 +92,7 @@ int main(void) {
 				tempflight=flight[j]; flight[j]=flight[j+1]; flight[j+1]=tempflight;
 			}
 		}
-		total_promo_price += flight[i].price;
+		total_promo_price += flight[i].promo_price;
 	}
 
 	printf("Сортирани по азбучен ред полети: \n");
@@ -98,7 +100,7 @@ int main(void) {
                 getFlight(&flight[i]);
         }
 
-        printf("Средна промо цена: \n");
+        printf("Средна промо цена: %d / %d \n", total_promo_price, n);
 	printf("%3.2lf\n", (float)total_promo_price/n);
 
 	// т.3 списък на полетите до Париж и Лондон от 08.2011 подредени по дата на полета
@@ -124,6 +126,37 @@ int main(void) {
 	for(i=0;i<nn;i++) {
 		printf("%d.%d.%d. %s %s %d eur.\n", newflight[i].day, newflight[i].month, newflight[i].year, newflight[i].destination, newflight[i].company, newflight[i].price);
 	}
+
+	// т.4 Авиокомпанията с най-много полети и средната отстъпка за тях + 3-те най ниски цени и тяхните направления
+
+	for(i=0;i<k;i++) {
+		for(j=0;j<k-1;j++)
+			if(maxflight[j].count<maxflight[j+1].count) {
+				tempmax=maxflight[j]; maxflight[j]=maxflight[j+1]; maxflight[j+1]=tempmax;
+			}
+	}
+
+	int avg_promo = 0;
+	for(i=0;i<n;i++) {
+		if(strcmp(flight[i].company,maxflight[0].company)==0) {
+			avg_promo += (flight[i].price-flight[i].promo_price);
+		}
+	}
+	printf("Средна отстъпка за полетите на %s e %3.2lf\n", maxflight[0].company, (float)avg_promo/maxflight[0].count);
+
+	// т.4.2
+        for(i=0;i<n;i++) {
+                for(j=0;j<n-1;j++) {
+                        if(flight[j].promo_price>flight[j+1].promo_price) {
+                                tempflight=flight[j]; flight[j]=flight[j+1]; flight[j+1]=tempflight;
+                        }
+                }
+        }
+
+        printf("Трите полета с най-ниска промо цена\n");
+        for(i=0;i<3;i++) {
+                getFlight(&flight[i]);
+        }
 
 return 0;
 };
