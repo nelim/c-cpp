@@ -39,7 +39,7 @@ void addFlight(struct flights *flight) {
 };
 
 void getFlight(struct flights *flight) {
-         printf("%d.%d.%d. %s %s %d eur.\n", flight[i].day, flight[i].month, flight[i].year, flight[i].destination, flight[i].company, flight[i].price);
+         printf("%d.%d.%d. %s %s %d eur.\n", flight->day, flight->month, flight->year, flight->destination, flight->company, flight->price);
 };
 
 
