@@ -15,19 +15,22 @@ struct students {
 
 int total_points(struct students *student) {
 	int temp;
+	struct students tempstu;
+	// za da sortirame zadachite po tochki, polzwame temp studenta za da ne precakwame ordera na zadachite
+	tempstu=*student;
 	// sortirane 5-te zadachi po tochki
 	int i,j;
 	for(i=0;i<TASKS;i++) {
 		for(j=0;j<TASKS-1;j++) {
-			if(student->task[j]<student->task[j+1]) {
-				temp=student->task[j]; student->task[j]=student->task[j+1]; student->task[j+1]=temp;
+			if(tempstu.task[j]<tempstu.task[j+1]) {
+				temp=tempstu.task[j]; tempstu.task[j]=tempstu.task[j+1]; tempstu.task[j+1]=temp;
 			}
 		}
 	}
 	// sumirame samo tochkite ot pyrwite 3 rezultata (poslednite 2 sa naj-niski i gi ignorirame)
 	int totalpoints=0;
 	for(i=0;i<3;i++) {
-	 	totalpoints += student->task[i];
+	 	totalpoints += tempstu.task[i];
 	}
 	return totalpoints;
 }
@@ -82,6 +85,23 @@ int main(void) {
 	printf("Sreden broi tochki za studentite ot PU e %f\n", (float)totalpu/totalpucnt);
 
 
+	// tochka 4
+	int max[TASKS] = {0,0,0,0,0}; // integer array max za wsqka zadacha w koqto shte  izwadim maximalniq broi tochki
+
+	for(i=0;i<n;i++) { // wsichki studenti
+		for(j=0;j<TASKS;j++) { // za wsichki zadachi
+			// ako tochkite na studenta za opredelena zadacha sa po-golemi ot segashniq max za tazi zadacha
+			if(student[i].task[j]>max[j]) { max[j]=student[i].task[j]; }
+		}
+	}
+
+	// izwejdame imenata na wsichki studenti kojto imat maximalen broi tochki po pette zadachi
+	for(j=0;j<TASKS;j++) {
+		printf("Maximalna ocenka %d za zadacha %d ima :\n", max[j], j+1);
+		for(i=0;i<n;i++) {
+			if(student[i].task[j]==max[j]) { printf("%s\n", student[i].name); }
+		}
+	}
 
 return 0;
 };
