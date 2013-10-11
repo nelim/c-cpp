@@ -44,18 +44,18 @@ int main(void) {
 	do {
 	printf("Broi studenti: ");
 	scanf("%d", &n);
-	} while (1>n>200);
+	} while (n<1 || n>200);
 
 	for(i=0;i<n;i++) {
 		// po uslovie ne e qsno, towa ID shte se wywejdali ili shte e poreden nomer?
 		// prawq go da e poreden nomer kato zapochwame ot 1;
 		student[i].id  = i+1;
-		printf("Ime: "); 		scanf("\n%[^\n]s", (char*)&student[i].name);
-		printf("Univeristet: ");	scanf("\n%[^\n]s", (char*)&student[i].uni);
+		printf("Ime: "); 		scanf(" %[^\n]s", (char*)&student[i].name);
+		printf("Univeristet: ");	scanf(" %[^\n]s", (char*)&student[i].uni);
 		for(j=0;j<5;j++) {
 			do {
 				printf("Tochki zadacha %d: ", j+1); scanf("%d", &student[i].task[j]);
-			} while (0>student[i].task[j]>100);
+			} while (student[i].task[j]<0 || student[i].task[j]>100);
 		}
 	}
 
